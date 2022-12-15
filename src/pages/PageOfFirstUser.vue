@@ -19,7 +19,7 @@ export default {
   data() {
     return {
       message: "",
-      messages: [],
+      messages: localStorage.getItem('messages') ? JSON.parse(localStorage.getItem('messages')) : [],
     };
   },
   methods: {
@@ -29,14 +29,16 @@ export default {
       msg.body = this.message;
       this.messages.push(msg);
       this.message = "";
+
+      this.saveMessages();
+      this.messages = JSON.parse(localStorage.getItem('messages'));
     },
   saveMessages(){
     let parsed = JSON.stringify(this.messages);
     localStorage.setItem('messages', parsed);
   }
-  },
-  
 
+  },
 
 };
 </script>
